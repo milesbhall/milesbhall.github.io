@@ -1,20 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ page.title }} - Miles Hall</title>
-<link rel="stylesheet" href="/style.css">
-{% if page.math %}<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>{% endif %}
-</head>
-<body>
-
+---
+layout: default
+---
+<main>
 <p><a href="/">&larr; home</a></p>
 
 <h1>{{ page.title }}</h1>
+{% if page.collection == "projects" %}
+<p>{{ page.description }}</p>
+<p>{{ page.event | escape }}, {{ page.award }}. {{ page.date | date: "%B %Y" }}. {{ page.team }}.</p>
+<p>{% for link in page.links %}<a href="{{ link.url }}">{{ link.name }}</a>{% unless forloop.last %} | {% endunless %}{% endfor %}</p>
+{% else %}
 <p><time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: "%B %-d, %Y" }}</time></p>
+{% endif %}
 
 {{ content }}
-
-</body>
-</html>
+</main>

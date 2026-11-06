@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+<link rel="stylesheet" href="/style.css">
+{% if page.math %}<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>{% endif %}
+</head>
+<body>
+<div id="container">
+
+<div id="topBar">featured: <a href="{{ site.data.featured.url }}">{{ site.data.featured.title }}</a> - {{ site.data.featured.note }}</div>
+
+<div id="header"><a href="/">Miles Hall</a></div>
+
+<nav id="navbar">
+<ul>
+<li><a href="/">home</a></li>
+<li><a href="/#projects">projects</a></li>
+<li><a href="/#writing">writing</a></li>
+<li><a href="/resume.pdf" download>resume</a></li>
+</ul>
+</nav>
+
+<div id="flex">
+{{ content }}
+</div>
+
+<footer id="footer">layout started from <a href="https://codepen.io/sadness97/full/XJbLxNj">sadgrl's layout builder</a>.</footer>
+
+</div>
+</body>
+</html>

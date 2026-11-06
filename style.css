@@ -1,27 +1,123 @@
+/* adapted from sadgrl's layout builder: https://codepen.io/sadness97/full/XJbLxNj */
+
+* { box-sizing: border-box; }
+
 body {
-  max-width: 38em;
-  margin: 2em auto 4em 0;
-  padding: 0 1em;
-  background: #fbf8ef;
-  color: #222;
-  font-family: monospace, monospace;
+  margin: 0;
+  background-color: #08031A;
+  color: #fceaff;
+  font-family: Verdana, Geneva, sans-serif;
   line-height: 1.5;
 }
 
-a, a:visited { color: #0000ee; }
+/* wraps the whole site */
+#container {
+  max-width: 900px;
+  margin: 0 auto;
+}
 
-li { margin-bottom: 1em; }
+#container a {
+  color: #ED64F5;
+  font-weight: bold;
+}
+
+#topBar {
+  width: 100%;
+  padding: 10px;
+  font-size: smaller;
+  background-color: #13092D;
+}
+
+/* no header image, just my name */
+#header {
+  width: 100%;
+  padding: 18px 20px;
+  background-color: #5e4e8c;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+#header a { color: #fceaff !important; text-decoration: none; }
+
+#navbar {
+  margin: 10px 0;
+  padding: 10px 0;
+  background-color: #13092D;
+}
+
+#navbar ul {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+#navbar li a { text-decoration: none; font-weight: 800; }
+
+#flex { display: flex; }
+
+aside {
+  background-color: #241445;
+  width: 200px;
+  padding: 20px;
+  font-size: smaller;
+}
+
+main {
+  background-color: #43256E;
+  flex: 1;
+  padding: 20px;
+  order: 2;
+  min-width: 0;
+}
+
+#leftSidebar { order: 1; margin-right: 10px; }
+#rightSidebar { order: 3; margin-left: 10px; }
+
+aside ul { padding-left: 18px; }
+aside li { margin-bottom: 8px; }
+
+footer {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #13092D;
+  text-align: center;
+  font-size: smaller;
+}
+
+h1, h2, h3, strong { color: #ED64F5; }
+h1 { font-size: 25px; }
+
+/* the darker box */
+.box {
+  background-color: #13092D;
+  border: 1px solid #ED64F5;
+  padding: 0 10px;
+}
+
+.entry { border-bottom: 1px dashed #a49cba; }
+
+small { color: #a49cba; }
 
 pre {
   overflow-x: auto;
-  padding: 0.5em;
-  border: 1px dashed #222;
+  padding: 10px;
+  background-color: #13092D;
+  border: 1px solid #ED64F5;
 }
 
-/* code highlighting (rouge) */
-.highlight .c, .highlight .c1, .highlight .cm, .highlight .cs { font-style: italic; }
-.highlight .k, .highlight .kd, .highlight .kn, .highlight .kc, .highlight .kt, .highlight .nb { font-weight: bold; }
-.highlight .s, .highlight .s1, .highlight .s2, .highlight .sd, .highlight .si { color: #0000ee; }
+.highlight .c, .highlight .c1, .highlight .cm { color: #a49cba; font-style: italic; }
+.highlight .k, .highlight .kd, .highlight .kn, .highlight .nb { color: #ED64F5; }
 
-/* wide equations scroll instead of breaking the page */
 mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; }
+
+/* phones: stack everything, main content first */
+@media only screen and (max-width: 800px) {
+  #flex { flex-wrap: wrap; }
+  aside { width: 100%; }
+  main { order: 1; }
+  #leftSidebar { order: 2; margin: 10px 0 0; }
+  #rightSidebar { order: 3; margin: 10px 0 0; }
+  #navbar ul { flex-wrap: wrap; }
+}

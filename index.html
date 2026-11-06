@@ -1,71 +1,35 @@
 ---
+layout: default
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Miles Hall</title>
-<link rel="stylesheet" href="/style.css">
-</head>
-<body>
+<aside id="leftSidebar">
+<h2>links</h2>
+<ul>
+<li><a href="https://www.linkedin.com/in/milesbhall/">LinkedIn</a></li>
+<li><a href="https://github.com/milesbhall">GitHub</a></li>
+</ul>
 
-<h1>Miles Hall</h1>
+<h3>resume</h3>
+<p><a href="/resume.pdf" download>download resume (PDF)</a></p>
+</aside>
 
-<h2>About Me</h2>
+<main>
+<h1>About Me</h1>
 <p>I'm an undergraduate student at William &amp; Mary double majoring in Applied Math and Computer Science with a concentration in Artificial Intelligence and Machine Learning. I'm obsessed with taking apart systems and machines to understand how they work. This curiosity has led me to pursue academic and financial research.</p>
 
-<h2>Links</h2>
-<ul>
-  <li><a href="https://www.linkedin.com/in/milesbhall/">LinkedIn</a></li>
-  <li><a href="https://github.com/milesbhall">GitHub</a></li>
-</ul>
+<h2 id="projects">Projects</h2>
+{% assign projects = site.projects | sort: "date" | reverse %}{% for p in projects %}
+<div class="entry">
+<p><a href="{{ p.url }}">{{ p.title }}</a> <small>{{ p.date | date: "%B %Y" }}</small><br>
+{{ p.description }}<br>
+<small>{{ p.event | escape }}, {{ p.award }}. {{ p.team }}.</small></p>
+</div>
+{% endfor %}
+</main>
 
-<h2>Projects</h2>
-<ul>
-  <li>
-    <strong>Shelf-Life Guard</strong><br>
-    A safeguard for a delivery-time prediction model that catches bad delivery records, like outdated data and sloppy scans, before they make delivery promises wrong.<br>
-    Case-a-thon II, 1st overall. October 2026. Team of three.<br>
-    <a href="https://1628745.github.io/Case-a-thon2026/">project site</a>
-  </li>
-  <li>
-    <strong>VolumeMaster 2</strong><br>
-    A Firefox extension that shows TCGplayer sales volume on Kalshi's Pokémon price markets and warns about markets that could be easy to manipulate.<br>
-    &amp;Hacks XII, 2nd in the financial track. September 2026. Solo.<br>
-    <a href="https://github.com/milesbhall/volumemaster2">github</a>, <a href="https://devpost.com/software/volumemaster2">devpost</a>
-  </li>
-  <li>
-    <strong>Foregast</strong><br>
-    A tool that forecasts fertilizer prices 30, 60, and 90 days ahead from natural gas market data to help farmers decide when to buy.<br>
-    HooHacks, 1st place in the financial track. March 2026. Team of four.<br>
-    <a href="https://github.com/bob3457/HooHacks26">github</a>, <a href="https://devpost.com/software/hoohacks-submission">devpost</a>
-  </li>
-  <li>
-    <strong>GreenMachine</strong><br>
-    A chatbot that uses Gemini to learn what a shopper cares about in a product, then suggests safer, greener alternatives from a product database.<br>
-    &amp;Hacks XI, 1st place in the Ferguson Challenge. September 2025. With a partner.<br>
-    <a href="https://github.com/milesbhall/-Hacks">github</a>, <a href="https://devpost.com/software/ferguson-ai">devpost</a>
-  </li>
-  <li>
-    <strong>SurgiSafe</strong><br>
-    A wearable device that tracks a surgical wound's moisture, temperature, and pH in real time to give early warning of infection.<br>
-    PennApps XXV, 1st place in the Healthcare Track. September 2024. Team of four.<br>
-    <a href="https://devpost.com/software/infectdetect">devpost</a>
-  </li>
-</ul>
+<aside id="rightSidebar">
+<h2 id="writing">Writing</h2>
+{% if site.posts.size > 0 %}<ul>
+{% for post in site.posts %}<li><a href="{{ post.url }}">{{ post.title }}</a><br><small>{{ post.date | date: "%Y-%m-%d" }}</small></li>
+{% endfor %}</ul>{% else %}<div class="box"><p>nothing yet.</p></div>{% endif %}
 
-<h2>Writing</h2>
-{% if site.posts.size > 0 %}
-<ul>
-  {% for post in site.posts %}<li>{{ post.date | date: "%Y-%m-%d" }} <a href="{{ post.url }}">{{ post.title }}</a></li>
-  {% endfor %}
-</ul>
-{% else %}
-<p>Nothing yet.</p>
-{% endif %}
-
-<p><a href="/resume.pdf">Resume (PDF)</a></p>
-
-</body>
-</html>
+</aside>

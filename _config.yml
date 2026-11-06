@@ -3,8 +3,21 @@ url: https://mileshall.com
 markdown: kramdown
 permalink: /writing/:title/
 
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+
 defaults:
   - scope:
       type: posts
     values:
       layout: post
+  - scope:
+      type: projects
+    values:
+      layout: post
+
+exclude:
+  - reference-layout.html
+  - reference-screenshots
