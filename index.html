@@ -31,11 +31,12 @@ layout: default
 </main>
 
 <aside id="rightSidebar">
-<h2 class="bar" id="writing">Latest post</h2>
-{% if site.posts.size > 0 %}{% for post in site.posts limit:1 %}
-<div class="box">
-<p><a href="{{ post.url }}">{{ post.title }}</a><br><small>{{ post.date | date: "%B %Y" }}</small></p>
-</div>{% endfor %}
-<p><a href="/writing/">all posts ({{ site.posts.size }}) &rarr;</a></p>
+<h2 class="bar" id="writing">Recent posts</h2>
+{% if site.posts.size > 0 %}<div class="post-fill">
+<ul class="post-list">
+{% for post in site.posts limit:30 %}<li class="box"><a href="{{ post.url }}">{{ post.title }}</a><br><small>{{ post.date | date: "%B %Y" }}</small></li>
+{% endfor %}</ul>
+</div>
+<p class="all-posts"><a href="/writing/">all posts ({{ site.posts.size }}) &rarr;</a></p>
 {% else %}<div class="box"><p>nothing yet.</p></div>{% endif %}
 </aside>

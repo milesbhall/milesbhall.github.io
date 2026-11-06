@@ -1,7 +1,7 @@
 ---
 title: Biblical Symbolism Motif in Lord of the Flies
 date: 2022-10-01
-note: Written for English II.
+note: Written for English II
 ---
 
 William Golding uses his Lord of the Flies allegory to argue that mankind is inherently evil. His use of Biblical symbolism is sound, and - in total - argues his thesis convincingly. Throughout the novel, Golding uses symbolism varying from broad Biblical themes of sin as the Beast to directly comparing a character to Jesus of Nazareth. This part of his allegory, on top of the multitudes of unrelated symbolism, adds depth to Lord of the Flies and deepens the message that mankind is inherently evil. This essay will use both quotes from The Lord of the Flies and various translations of the Bible (CSB and King James’), which is indicated in the form of notation: (23) is LOTF, while (Job 3:1) is the Bible.

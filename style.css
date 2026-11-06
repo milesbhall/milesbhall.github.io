@@ -137,14 +137,32 @@ body {
 
 /* ---------- commodity ticker (data: _data/ticker.json, from FRED) ---------- */
 #ticker {
+  position: relative;
   overflow: hidden;
   margin: 0 0 8px;
   background-color: var(--panel);
   font-family: var(--heading-font);
-  font-size: 20px;
+  font-size: 16px;
   letter-spacing: 1px;
   white-space: nowrap;
 }
+
+/* softer text so the strip doesn't shout */
+.ticker-track { opacity: 0.7; }
+
+/* gradient layers over each end fade the text into the strip's background */
+#ticker::before,
+#ticker::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 80px;
+  pointer-events: none;
+}
+#ticker::before { left: 0;  background: linear-gradient(to right, var(--panel), transparent); }
+#ticker::after  { right: 0; background: linear-gradient(to left,  var(--panel), transparent); }
 
 /* two copies of the list side by side; sliding left by one copy loops seamlessly */
 .ticker-track {
@@ -247,6 +265,40 @@ main .bar {
   padding: 0 10px;
 }
 
+/* right column post list: shows as many posts as fit beside the center column, then fades out */
+#rightSidebar { display: flex; flex-direction: column; }
+
+.post-fill {
+  position: relative;
+  flex: 1;
+  min-height: 90px;
+}
+
+/* taken out of the normal flow so the list never makes the column taller */
+.post-list {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.post-list li { margin: 0 0 8px; padding: 8px 10px; }
+
+.post-fill::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40px;
+  background: linear-gradient(to top, var(--panel), transparent);
+  pointer-events: none;
+}
+
+.all-posts { margin: 8px 0 0; }
+
 /* project card: thumbnail on the left, text on the right */
 .project {
   display: flex;
@@ -297,6 +349,11 @@ mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; }
   #rightSidebar { order: 3; margin: 12px 0 0; }
   #navbar ul { flex-wrap: wrap; }
   .project img { width: 80px; }
+  /* stacked on phones, so there's no column height to fill: show the 3 newest */
+  .post-fill { min-height: 0; }
+  .post-fill::after { display: none; }
+  .post-list { position: static; }
+  .post-list li:nth-child(n+4) { display: none; }
   #header { height: 110px; }
   #header a { font-size: 30px; }
 }
