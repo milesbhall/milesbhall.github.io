@@ -8,7 +8,7 @@ short_description: A Firefox extension that shows TCGplayer sales volume on Kals
 long_description: |
 
 images:
-#  - src: /assets/images/projects/volumemaster-2/example.jpg
+#  - src: /assets/images/projects/volumemaster-2/example.webp
 #    alt: what the photo shows
 links:
   - name: github

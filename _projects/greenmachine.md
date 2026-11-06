@@ -8,7 +8,7 @@ short_description: A chatbot that uses Gemini to learn what a shopper likes abou
 long_description: |
 
 images:
-#  - src: /assets/images/projects/greenmachine/example.jpg
+#  - src: /assets/images/projects/greenmachine/example.webp
 #    alt: what the photo shows
 links:
   - name: github

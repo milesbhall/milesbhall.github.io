@@ -8,7 +8,7 @@ short_description: A tool that forecasts fertilizer prices from natural gas mark
 long_description: |
 
 images:
-#  - src: /assets/images/projects/foregast/example.jpg
+#  - src: /assets/images/projects/foregast/example.webp
 #    alt: what the photo shows
 links:
   - name: github

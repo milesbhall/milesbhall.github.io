@@ -8,7 +8,7 @@ short_description: A wearable device that tracks a surgical wound's moisture, te
 long_description: |
 
 images:
-#  - src: /assets/images/projects/surgisafe/example.jpg
+#  - src: /assets/images/projects/surgisafe/example.webp
 #    alt: what the photo shows
 links:
   - name: devpost

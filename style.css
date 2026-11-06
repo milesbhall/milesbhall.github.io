@@ -64,7 +64,7 @@
 body {
   margin: 0;
   background-color: var(--page);
-  background-image: url('/assets/images/backgrounds/black.jpg');
+  background-image: url('/assets/images/backgrounds/black.webp');
   background-repeat: repeat;
   color: var(--text);
   font-family: var(--body-font);
@@ -86,7 +86,7 @@ body {
   width: 100%;
   padding: 10px;
   font-size: smaller;
-  background-color: var(--bar-side);  /* same dark teal as the sidebar heading bars */
+  background-color: var(--panel);
 }
 
 /* header: map graphic with my name in a label */
@@ -97,7 +97,7 @@ body {
   height: 160px;
   padding: 16px 20px;
   background-color: var(--page);
-  background-image: url('/assets/images/header/header.jpg');
+  background-image: url('/assets/images/header/header.webp');
   background-size: cover;
   background-position: center;
 }
