@@ -1,0 +1,116 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatMonth, formatDate } from '../lib/content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  /** kept for API compatibility; numbering lives in the thumbnail */
+  index?: number;
+  /** h2 on the projects page, h3 when nested under a section heading */
+  headingLevel?: 2 | 3;
+}
+
+const { project, headingLevel = 2 } = Astro.props;
+const { name, description, event, award, date, team, thumbnail, links } = project.data;
+const href = `/projects/${project.id}/`;
+const Heading = `h${headingLevel}`;
+const isPlaceholder = description.startsWith('[PLACEHOLDER');
+---
+
+<article class="card panel boot">
+  <a class="card__thumb" href={href} tabindex="-1" aria-hidden="true">
+    <img src={thumbnail} alt="" width="640" height="360" loading="lazy" decoding="async" />
+  </a>
+
+  <div class="card__body">
+    <Heading class="card__name"><a href={href}>{name}</a></Heading>
+    <p class:list={['card__desc', { placeholder: isPlaceholder }]}>{description}</p>
+
+    <dl class="card__data">
+      <div><dt class="label">Built for</dt><dd>{event}</dd></div>
+      {award && <div class="card__award"><dt class="label">Award</dt><dd>{award}</dd></div>}
+      <div><dt class="label">Date</dt><dd><time datetime={formatDate(date).slice(0, 7)}>{formatMonth(date)}</time></dd></div>
+      <div><dt class="label">Team</dt><dd>{team}</dd></div>
+    </dl>
+
+    <ul class="card__links" role="list">
+      <li><a class="btn btn--primary" href={href}>Details <span class="btn__key" aria-hidden="true">↵</span></a></li>
+      {
+        links.map((l) => (
+          <li>
+            <a class="btn" href={l.url} rel="noopener">
+              {l.label} <span class="btn__key" aria-hidden="true">↗</span>
+              <span class="sr-only">(external, {name})</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</article>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.15s;
+  }
+  .card:hover { border-color: var(--c-line-strong); }
+
+  .card__thumb {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    border-bottom: var(--border);
+    background: var(--c-panel-2);
+    overflow: hidden;
+  }
+  .card__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .card:hover .card__thumb img { transform: scale(1.03); }
+
+  .card__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    flex: 1;
+    padding: var(--s-4);
+  }
+
+  .card__name { font-size: var(--fs-lg); }
+  .card__name a { color: var(--c-text); text-decoration: none; }
+  .card__name a:hover { color: var(--c-amber); }
+
+  .card__desc { color: var(--c-text-dim); font-size: var(--fs-sm); }
+
+  .card__data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0;
+    border: var(--border);
+    font-size: var(--fs-xs);
+  }
+  .card__data > div {
+    padding: var(--s-2) var(--s-3);
+    border-bottom: var(--border);
+    min-width: 0;
+  }
+  .card__data > div:nth-child(odd) { border-right: var(--border); }
+  .card__data > div:nth-last-child(-n + 2):nth-child(odd),
+  .card__data > div:last-child { border-bottom: 0; }
+  .card__data dd { margin: 0.1rem 0 0; color: var(--c-text); }
+  .card__award dd { color: var(--c-green); }
+  .card__award dd::before { content: '▲ '; font-size: 0.8em; }
+
+  .card__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin-top: auto;
+    padding-top: var(--s-1);
+  }
+</style>

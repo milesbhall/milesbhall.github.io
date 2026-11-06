@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** 'article' for blog posts */
+  ogType?: 'website' | 'article';
+}
+
+const SITE_TITLE = 'Miles Hall';
+const SITE_DESC =
+  'Miles Hall is an Applied Math and Computer Science student at William & Mary. Projects, writing, and resume.';
+
+const { title, description = SITE_DESC, ogType = 'website' } = Astro.props;
+const fullTitle = title ? `${title} · ${SITE_TITLE}` : `${SITE_TITLE}: Projects & Writing`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {!Astro.url.pathname.startsWith('/404') && <link rel="canonical" href={canonical} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Miles Hall: Writing" href="/writing/rss.xml" />
+    <meta name="theme-color" content="#07080a" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={SITE_TITLE} />
+    <meta name="twitter:card" content="summary" />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main" class="wrap">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,164 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getProjects, formatMonth, formatDate } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.map((project, i) => ({
+    params: { slug: project.id },
+    props: {
+      project,
+      index: i,
+      newer: projects[i - 1] ?? null,
+      older: projects[i + 1] ?? null,
+    },
+  }));
+}
+
+const { project, index, newer, older } = Astro.props;
+const { name, description, event, award, date, team, thumbnail, links } = project.data;
+const { Content } = await render(project);
+const isPlaceholder = description.startsWith('[PLACEHOLDER');
+---
+
+<BaseLayout title={name} description={isPlaceholder ? `${name}, built for ${event}.` : description}>
+  <header class="page-head boot">
+    <p class="page-head__crumb"><a href="/">Home</a> / <a href="/projects/">Projects</a> / {project.id}</p>
+    <h1>{name}</h1>
+    <p class:list={['page-head__lede', { placeholder: isPlaceholder }]}>{description}</p>
+  </header>
+
+  <div class="detail">
+    <aside class="detail__side boot" aria-label="Project facts">
+      <figure class="panel detail__thumb">
+        <img src={thumbnail} alt={`Illustration for ${name}`} width="640" height="360" />
+      </figure>
+
+      <section class="panel">
+        <div class="panel__head">
+          <span class="panel__code">{String(index + 1).padStart(2, '0')}</span>
+          <h2>Facts</h2>
+        </div>
+        <dl class="facts">
+          <div><dt class="label">Built for</dt><dd>{event}</dd></div>
+          {award && <div><dt class="label">Award</dt><dd class="facts__award">{award}</dd></div>}
+          <div><dt class="label">Date</dt><dd><time datetime={formatDate(date).slice(0, 7)}>{formatMonth(date)}</time></dd></div>
+          <div><dt class="label">Team</dt><dd>{team}</dd></div>
+        </dl>
+      </section>
+
+      {
+        links.length > 0 && (
+          <section class="panel">
+            <div class="panel__head"><h2>Links</h2></div>
+            <ul class="detail__links" role="list">
+              {links.map((l) => (
+                <li>
+                  <a href={l.url} rel="noopener">
+                    <span>{l.label}</span>
+                    <span class="detail__url">{l.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}</span>
+                    <span class="detail__arrow" aria-hidden="true">↗</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+    </aside>
+
+    <article class="detail__body boot">
+      <div class="prose">
+        <Content />
+      </div>
+    </article>
+  </div>
+
+  <nav class="pager" aria-label="More projects">
+    {newer ? (
+      <a class="pager__link" href={`/projects/${newer.id}/`}>
+        <span class="label">← Newer</span><span>{newer.data.name}</span>
+      </a>
+    ) : <span />}
+    {older && (
+      <a class="pager__link pager__link--older" href={`/projects/${older.id}/`}>
+        <span class="label">Older →</span><span>{older.data.name}</span>
+      </a>
+    )}
+  </nav>
+</BaseLayout>
+
+<style>
+  .detail {
+    display: grid;
+    grid-template-columns: minmax(16rem, 22rem) minmax(0, 1fr);
+    gap: var(--s-6);
+    align-items: start;
+  }
+  .detail__side { display: grid; gap: var(--s-3); position: sticky; top: var(--s-4); }
+  .detail__thumb { margin: 0; aspect-ratio: 16 / 9; overflow: hidden; }
+  .detail__thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+  .facts { margin: 0; font-size: var(--fs-sm); }
+  .facts > div {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    gap: var(--s-2);
+    padding: var(--s-2) var(--s-3);
+    border-bottom: var(--border);
+  }
+  .facts > div:last-child { border-bottom: 0; }
+  .facts dt { padding-top: 0.15rem; }
+  .facts dd { margin: 0; }
+  .facts__award { color: var(--c-green); }
+
+  .detail__links li + li { border-top: var(--border); }
+  .detail__links a {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0 var(--s-2);
+    padding: var(--s-2) var(--s-3);
+    color: var(--c-text);
+    text-decoration: none;
+    font-size: var(--fs-sm);
+    font-weight: 500;
+  }
+  .detail__links a:hover { background: var(--c-panel-2); color: var(--c-amber); }
+  .detail__url {
+    grid-column: 1;
+    font-size: var(--fs-xs);
+    font-weight: 400;
+    color: var(--c-cyan);
+    overflow-wrap: anywhere;
+  }
+  .detail__arrow { grid-column: 2; grid-row: 1 / span 2; align-self: center; color: var(--c-text-faint); }
+
+  .detail__body { min-width: 0; }
+  .detail__body :global(.prose > :first-child) { margin-top: 0; }
+
+  .pager {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-3);
+    margin-top: var(--s-7);
+    padding-top: var(--s-4);
+    border-top: var(--border);
+  }
+  .pager__link {
+    display: grid;
+    gap: var(--s-1);
+    padding: var(--s-3) var(--s-4);
+    border: var(--border);
+    background: var(--c-panel);
+    color: var(--c-text);
+    text-decoration: none;
+  }
+  .pager__link:hover { border-color: var(--c-amber); color: var(--c-amber); }
+  .pager__link--older { text-align: right; grid-column: 2; }
+
+  @media (max-width: 860px) {
+    .detail { grid-template-columns: 1fr; gap: var(--s-5); }
+    .detail__side { position: static; }
+  }
+</style>

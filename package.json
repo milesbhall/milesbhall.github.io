@@ -1,0 +1,27 @@
+{
+  "name": "mileshall-site",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/markdown-remark": "^7.3.6",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/martian-mono": "^5.3.0",
+    "@fontsource-variable/source-serif-4": "^5.3.1",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "astro": "^7.4.7",
+    "katex": "^0.19.1",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0"
+  },
+  "overrides": {
+    "katex": "$katex"
+  }
+}

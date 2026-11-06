@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostList from '../../components/PostList.astro';
+import { getPosts } from '../../lib/content';
+
+const posts = await getPosts();
+---
+
+<BaseLayout title="Writing" description="Writing by Miles Hall on math, computer science, and research.">
+  <header class="page-head boot">
+    <p class="page-head__crumb"><a href="/">Home</a> / Writing</p>
+    <h1>Writing</h1>
+    <p class="page-head__lede">
+      Notes on math, code, and the systems I take apart. <a href="/writing/rss.xml">Subscribe via RSS</a>.
+    </p>
+  </header>
+
+  <section class="panel boot" aria-labelledby="log-h">
+    <div class="panel__head">
+      <span class="panel__code">LOG</span>
+      <h2 id="log-h">All posts</h2>
+      <span class="panel__meta">{posts.length} {posts.length === 1 ? 'ENTRY' : 'ENTRIES'}</span>
+    </div>
+    <PostList posts={posts} />
+  </section>
+</BaseLayout>

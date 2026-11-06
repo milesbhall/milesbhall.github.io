@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getProjects } from '../../lib/content';
+
+const projects = await getProjects();
+const awards = projects.filter((p) => p.data.award).length;
+---
+
+<BaseLayout
+  title="Projects"
+  description="Hackathon and research projects by Miles Hall, with the event, award, team, and links for each."
+>
+  <header class="page-head boot">
+    <p class="page-head__crumb"><a href="/">Home</a> / Projects</p>
+    <h1>Projects</h1>
+    <p class="page-head__lede">
+      {projects.length} builds, newest first · <span class="accent">{awards} awarded</span>
+    </p>
+  </header>
+
+  <div class="cards">
+    {projects.map((project, i) => <ProjectCard project={project} index={i} />)}
+  </div>
+</BaseLayout>
+
+<style>
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+    gap: var(--s-3);
+  }
+</style>
