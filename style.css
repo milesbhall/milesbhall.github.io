@@ -265,6 +265,19 @@ main .bar {
   padding: 0 10px;
 }
 
+/* left column logos: one row of four linked squares */
+.logos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.logos li { margin: 0; }
+.logos img { display: block; width: 100%; height: auto; border: 1px solid var(--line); }
+
 /* right column post list: shows as many posts as fit beside the center column, then fades out */
 #rightSidebar { display: flex; flex-direction: column; }
 
@@ -349,6 +362,7 @@ mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; }
   #rightSidebar { order: 3; margin: 12px 0 0; }
   #navbar ul { flex-wrap: wrap; }
   .project img { width: 80px; }
+  .logos { grid-template-columns: repeat(4, 1fr); max-width: 360px; }
   /* stacked on phones, so there's no column height to fill: show the 3 newest */
   .post-fill { min-height: 0; }
   .post-fill::after { display: none; }
