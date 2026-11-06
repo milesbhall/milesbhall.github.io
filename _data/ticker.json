@@ -1,0 +1,141 @@
+{
+  "updated": "2026-11-06T08:35Z",
+  "via": "csv",
+  "items": [
+    {
+      "label": "WTI CRUDE",
+      "series": "DCOILWTICO",
+      "price": "$99.64/bbl",
+      "change": "−0.4%",
+      "direction": "down",
+      "as_of": "Nov 3",
+      "date": "2026-11-03"
+    },
+    {
+      "label": "BRENT",
+      "series": "DCOILBRENTEU",
+      "price": "$107.03/bbl",
+      "change": "−0.3%",
+      "direction": "down",
+      "as_of": "Nov 3",
+      "date": "2026-11-03"
+    },
+    {
+      "label": "NAT GAS",
+      "series": "DHHNGSP",
+      "price": "$2.63/MMBtu",
+      "change": "+3.5%",
+      "direction": "up",
+      "as_of": "Nov 3",
+      "date": "2026-11-03"
+    },
+    {
+      "label": "GASOLINE",
+      "series": "DGASNYH",
+      "price": "$2.728/gal",
+      "change": "+3.0%",
+      "direction": "up",
+      "as_of": "Nov 3",
+      "date": "2026-11-03"
+    },
+    {
+      "label": "HEATING OIL",
+      "series": "DHOILNYH",
+      "price": "$4.470/gal",
+      "change": "+3.4%",
+      "direction": "up",
+      "as_of": "Nov 3",
+      "date": "2026-11-03"
+    },
+    {
+      "label": "COPPER",
+      "series": "PCOPPUSDM",
+      "price": "$14,473/t",
+      "change": "+1.0%",
+      "direction": "up",
+      "as_of": "Sep 2026",
+      "date": "2026-09-01"
+    },
+    {
+      "label": "ALUMINUM",
+      "series": "PALUMUSDM",
+      "price": "$3,283/t",
+      "change": "+1.0%",
+      "direction": "up",
+      "as_of": "Sep 2026",
+      "date": "2026-09-01"
+    },
+    {
+      "label": "NICKEL",
+      "series": "PNICKUSDM",
+      "price": "$16,324/t",
+      "change": "−2.5%",
+      "direction": "down",
+      "as_of": "Sep 2026",
+      "date": "2026-09-01"
+    },
+    {
+      "label": "IRON ORE",
+      "series": "PIORECRUSDM",
+      "price": "$100.44/t",
+      "change": "+0.8%",
+      "direction": "up",
+      "as_of": "Sep 2026",
+      "date": "2026-09-01"
+    },
+    {
+      "label": "WHEAT",
+      "series": "PWHEAMTUSDM",
+      "price": "$246.85/t",
+      "change": "+3.8%",
+      "direction": "up",
+      "as_of": "Sep 2026",
+      "date": "2026-09-01"
+    },
+    {
+      "label": "CORN",
+      "series": "PMAIZMTUSDM",
+      "price": "$236.92/t",
+      "change": "+7.1%",
+      "direction": "up",
+      "as_of": "Sep 2026",
+      "date": "2026-09-01"
+    },
+    {
+      "label": "SOYBEANS",
+      "series": "PSOYBUSDM",
+      "price": "$481.72/t",
+      "change": "+7.3%",
+      "direction": "up",
+      "as_of": "Sep 2026",
+      "date": "2026-09-01"
+    },
+    {
+      "label": "COFFEE",
+      "series": "PCOFFOTMUSDM",
+      "price": "330.1¢/lb",
+      "change": "−8.5%",
+      "direction": "down",
+      "as_of": "Sep 2026",
+      "date": "2026-09-01"
+    },
+    {
+      "label": "SUGAR",
+      "series": "PSUGAISAUSDM",
+      "price": "17.94¢/lb",
+      "change": "+6.6%",
+      "direction": "up",
+      "as_of": "Sep 2026",
+      "date": "2026-09-01"
+    },
+    {
+      "label": "COTTON",
+      "series": "PCOTTINDUSDM",
+      "price": "95.84¢/lb",
+      "change": "+0.2%",
+      "direction": "up",
+      "as_of": "Sep 2026",
+      "date": "2026-09-01"
+    }
+  ]
+}

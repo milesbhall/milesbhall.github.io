@@ -2,19 +2,70 @@
 
 * { box-sizing: border-box; }
 
-/* Silkscreen by The Silkscreen Project Authors, SIL Open Font License (assets/fonts/silkscreen/OFL.txt) */
-@font-face {
-  font-family: Silkscreen;
-  src: url('/assets/fonts/silkscreen/Silkscreen-Regular.ttf') format('truetype');
+/* ---------- colors and fonts: change the look here ---------- */
+:root {
+  /* neutrals (black, white, gray) */
+  --page:        #0b0b0b;  /* shows behind the background tile while it loads */
+  --panel:       #0b0b0b;  /* featured bar, nav bar, footer, sidebars, name label, cards */
+  --panel-main:  #111111;  /* center column */
+  --text:        #dddddd;
+  --link:        #ffffff;
+  --muted:       #8f8f8f;  /* dates, small print */
+  --line:        #3a3a3a;  /* neutral box borders */
+  --edge:        #000000;  /* outline around boxes that sit on the background */
+
+  /* accents: only on heading bars, project cards, and nav links */
+  --bar-center:  #0f7676;  /* center column heading bars */
+  --bar-side:    #0a4f4f;  /* sidebar heading bars */
+  --bar-text:    #ffffff;
+  --accent:      #3fd0c9;  /* nav links, project card borders, thumbnail frames */
+
+  /* fonts */
+  --heading-font: 'VT323', 'Courier New', monospace;
+  --body-font:    'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 
+/* VT323 by The VT323 Project Authors, SIL Open Font License (assets/fonts/vt323/OFL.txt) */
+@font-face {
+  font-family: 'VT323';
+  src: url('/assets/fonts/vt323/VT323-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+/* IBM Plex Sans by IBM Corp., SIL Open Font License (assets/fonts/ibm-plex-sans/OFL.txt) */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('/assets/fonts/ibm-plex-sans/IBMPlexSans-Regular-Latin1.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('/assets/fonts/ibm-plex-sans/IBMPlexSans-Italic-Latin1.woff2') format('woff2');
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('/assets/fonts/ibm-plex-sans/IBMPlexSans-Bold-Latin1.woff2') format('woff2');
+  font-weight: bold;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('/assets/fonts/ibm-plex-sans/IBMPlexSans-BoldItalic-Latin1.woff2') format('woff2');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ---------- page ---------- */
 body {
   margin: 0;
-  background-color: #08031A;  /* shows while the tile loads */
+  background-color: var(--page);
   background-image: url('/assets/images/backgrounds/black.jpg');
   background-repeat: repeat;
-  color: #fceaff;
-  font-family: Verdana, Geneva, sans-serif;
+  color: var(--text);
+  font-family: var(--body-font);
   line-height: 1.5;
 }
 
@@ -25,7 +76,7 @@ body {
 }
 
 #container a {
-  color: #ED64F5;
+  color: var(--link);
   font-weight: bold;
 }
 
@@ -33,24 +84,38 @@ body {
   width: 100%;
   padding: 10px;
   font-size: smaller;
-  background-color: #13092D;
+  background-color: var(--panel);
 }
 
-/* no header image, just my name */
+/* header: map graphic with my name in a label */
 #header {
+  display: flex;
+  align-items: flex-end;
   width: 100%;
-  padding: 18px 20px;
-  background-color: #5e4e8c;
-  font-size: 28px;
-  font-weight: bold;
+  height: 160px;
+  padding: 16px 20px;
+  background-color: var(--page);
+  background-image: url('/assets/images/header/header.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
-#header a { color: #fceaff !important; text-decoration: none; }
+#header a {
+  padding: 2px 12px;
+  background-color: var(--panel);
+  border: 1px solid var(--text);
+  color: var(--bar-text) !important;
+  font-family: var(--heading-font);
+  font-size: 38px;
+  font-weight: normal;
+  letter-spacing: 2px;
+  text-decoration: none;
+}
 
 #navbar {
-  margin: 10px 0;
-  padding: 10px 0;
-  background-color: #13092D;
+  margin: 8px 0;
+  padding: 8px 0;
+  background-color: var(--panel);
 }
 
 #navbar ul {
@@ -61,87 +126,143 @@ body {
   list-style-type: none;
 }
 
-#navbar li a { text-decoration: none; font-weight: 800; }
+#container #navbar li a {
+  color: var(--accent);
+  font-family: var(--heading-font);
+  font-size: 24px;
+  font-weight: normal;
+  letter-spacing: 2px;
+  text-decoration: none;
+}
 
+/* ---------- commodity ticker (data: _data/ticker.json, from FRED) ---------- */
+#ticker {
+  overflow: hidden;
+  margin: 0 0 8px;
+  background-color: var(--panel);
+  font-family: var(--heading-font);
+  font-size: 20px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+/* two copies of the list side by side; sliding left by one copy loops seamlessly */
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 90s linear infinite;
+}
+
+.ticker-list {
+  display: flex;
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+}
+
+.ticker-list li { padding: 0 22px; border-right: 1px solid var(--line); }
+.t-label { color: var(--link); }
+.t-up { color: var(--accent); }
+.t-down, .t-flat, .t-date, .t-source { color: var(--muted); }
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* visitors who ask for less motion get a still strip they can scroll sideways */
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; }
+  #ticker { overflow-x: auto; }
+}
+
+/* ---------- columns ---------- */
 #flex { display: flex; }
 
 aside {
-  background-color: #241445;
+  background-color: var(--panel);
   width: 200px;
   padding: 20px;
   font-size: smaller;
 }
 
 main {
-  background-color: #43256E;
+  background-color: var(--panel-main);
   flex: 1;
   padding: 20px;
   order: 2;
   min-width: 0;
 }
 
-#leftSidebar { order: 1; margin-right: 10px; }
-#rightSidebar { order: 3; margin-left: 10px; }
+#leftSidebar { order: 1; margin-right: 12px; }
+#rightSidebar { order: 3; margin-left: 12px; }
 
 aside ul { padding-left: 18px; }
 aside li { margin-bottom: 8px; }
 
 footer {
-  margin-top: 10px;
+  margin-top: 8px;
   padding: 10px;
-  background-color: #13092D;
+  background-color: var(--panel);
   text-align: center;
   font-size: smaller;
 }
 
-h1, h2, h3, strong { color: #ED64F5; }
+/* thin outline around the boxes that sit on the background (doesn't shift layout) */
+#topBar, #header, #navbar, #ticker, aside, main, footer {
+  outline: 1px solid var(--edge);
+}
+
+/* ---------- headings ---------- */
+h1, h2, h3, strong { color: var(--link); }
 h1 { font-size: 25px; }
 
-/* column headings: a navy bar across the column, body-sized pixel text */
+/* column headings: a colored bar across the column */
 .bar {
   margin: 0 0 12px;
-  padding: 4px 8px;
-  background-color: #13092D;
-  color: #ED64F5;
-  font-family: Silkscreen, "Courier New", monospace;
-  font-size: 1em;
+  padding: 2px 8px;
+  background-color: var(--bar-side);
+  color: var(--bar-text);
+  font-family: var(--heading-font);
+  font-size: 21px;
   font-weight: normal;
+  letter-spacing: 2px;
   text-align: center;
 }
 
 * + .bar { margin-top: 20px; }
 
-/* center column headings: bigger, thicker, purple */
+/* center column headings: bigger */
 main .bar {
-  padding: 14px 8px;
-  background-color: #5e4e8c;
-  color: #fceaff;
-  font-size: 22px;
+  padding: 4px 8px;
+  line-height: 1.2;
+  background-color: var(--bar-center);
+  font-size: 32px;
 }
 
-/* the darker box */
+/* ---------- boxes ---------- */
+/* plain box (latest post) */
 .box {
-  background-color: #13092D;
-  border: 1px solid #ED64F5;
+  border: 1px solid var(--line);
   padding: 0 10px;
 }
 
-/* project box: thumbnail on the left, text on the right */
+/* project card: thumbnail on the left, text on the right */
 .project {
   display: flex;
   gap: 12px;
   align-items: flex-start;
   margin-bottom: 12px;
   padding: 10px;
-  background-color: #13092D;
-  border: 2px solid #ED64F5;
+  background-color: var(--panel);
+  border: 2px solid var(--accent);
 }
 
 .project img {
   display: block;
   width: 110px;
   height: auto;
-  border: 1px solid #a49cba;
+  border: 2px solid var(--accent);
 }
 
 .project h3 { margin: 0 0 4px; font-size: 18px; }
@@ -150,29 +271,32 @@ main .bar {
 
 /* photos at the bottom of a project page */
 .gallery { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
-.gallery img { max-width: 100%; width: 300px; height: auto; border: 2px solid #ED64F5; }
+.gallery img { max-width: 100%; width: 300px; height: auto; border: 1px solid var(--line); }
 
-small { color: #a49cba; }
+small { color: var(--muted); }
 
+/* ---------- code and math in posts ---------- */
 pre {
   overflow-x: auto;
   padding: 10px;
-  background-color: #13092D;
-  border: 1px solid #ED64F5;
+  background-color: var(--panel);
+  border: 1px solid var(--line);
 }
 
-.highlight .c, .highlight .c1, .highlight .cm { color: #a49cba; font-style: italic; }
-.highlight .k, .highlight .kd, .highlight .kn, .highlight .nb { color: #ED64F5; }
+.highlight .c, .highlight .c1, .highlight .cm { color: var(--muted); font-style: italic; }
+.highlight .k, .highlight .kd, .highlight .kn, .highlight .nb { color: var(--link); font-weight: bold; }
 
 mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; }
 
-/* phones: stack everything, main content first */
+/* ---------- phones: stack everything, main content first ---------- */
 @media only screen and (max-width: 800px) {
   #flex { flex-wrap: wrap; }
   aside { width: 100%; }
   main { order: 1; }
-  #leftSidebar { order: 2; margin: 10px 0 0; }
-  #rightSidebar { order: 3; margin: 10px 0 0; }
+  #leftSidebar { order: 2; margin: 12px 0 0; }
+  #rightSidebar { order: 3; margin: 12px 0 0; }
   #navbar ul { flex-wrap: wrap; }
   .project img { width: 80px; }
+  #header { height: 110px; }
+  #header a { font-size: 30px; }
 }

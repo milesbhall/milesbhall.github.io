@@ -11,7 +11,7 @@
 <body>
 <div id="container">
 
-<div id="topBar">featured: <a href="{{ site.data.featured.url }}">{{ site.data.featured.title }}</a> - {{ site.data.featured.note }}</div>
+<div id="topBar">featured: <a href="{{ site.data.featured.url }}">{{ site.data.featured.title }}</a> - <em>{{ site.data.featured.note }}</em></div>
 
 <div id="header"><a href="/">Miles Hall</a></div>
 
@@ -24,11 +24,20 @@
 </ul>
 </nav>
 
+{% if site.data.ticker.items %}<div id="ticker" aria-label="Commodity prices from FRED">
+<div class="ticker-track">
+{% for pass in (1..2) %}<ul class="ticker-list"{% if pass == 2 %} aria-hidden="true"{% endif %}>
+{% for t in site.data.ticker.items %}<li><span class="t-label">{{ t.label }}</span> {{ t.price }} <span class="t-{{ t.direction }}">{{ t.change }}</span> <span class="t-date">{{ t.as_of }}</span></li>
+{% endfor %}<li class="t-source">source: FRED, Federal Reserve Bank of St. Louis</li>
+</ul>
+{% endfor %}</div>
+</div>{% endif %}
+
 <div id="flex">
 {{ content }}
 </div>
 
-<footer id="footer">&copy; 2026 Miles Hall</footer>
+<footer id="footer">&copy; 2026 Miles Hall<br><small>Commodity prices: <a href="https://fred.stlouisfed.org/">FRED&reg;</a>. This product uses the FRED&reg; API but is not endorsed or certified by the Federal Reserve Bank of St. Louis.</small></footer>
 
 </div>
 </body>

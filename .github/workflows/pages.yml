@@ -1,0 +1,53 @@
+# Builds and publishes the site with fresh commodity prices from FRED.
+# Runs on every push to main, once a day on weekdays, and on demand from the Actions tab.
+# Requires: Settings > Pages > Source = "GitHub Actions", and a repository secret FRED_API_KEY.
+name: Build and deploy site
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "30 22 * * 1-5"   # 22:30 UTC weekdays, after FRED posts the day's oil and gas prices
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # If this fails, the build continues with the prices already in _data/ticker.json.
+      - name: Fetch commodity prices from FRED
+        continue-on-error: true
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: python3 _scripts/fetch_ticker.py
+
+      - uses: actions/configure-pages@v5
+
+      # The same Jekyll build GitHub Pages uses when publishing from a branch.
+      - uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
+      - uses: actions/upload-pages-artifact@v3
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
