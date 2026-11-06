@@ -1,10 +1,15 @@
 ---
 title: GreenMachine
 date: 2025-09-01
-event: "&Hacks XI"
-award: 1st place in the Ferguson Challenge
-team: With a partner
-description: A chatbot that uses Gemini to learn what a shopper likes about a product, then searches a product database for greener alternatives.
+organization: "&Hacks XI"
+thumbnail:
+short_description: A chatbot that uses Gemini to learn what a shopper likes about a product, then searches a product database for greener alternatives.
+# write the long description below in Markdown, indented two spaces
+long_description: |
+
+images:
+#  - src: /assets/images/projects/greenmachine/example.jpg
+#    alt: what the photo shows
 links:
   - name: github
     url: https://github.com/milesbhall/-Hacks

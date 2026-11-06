@@ -2,16 +2,20 @@
 layout: default
 ---
 <main>
-<p><a href="/">&larr; home</a></p>
+<p><a href="/">&larr; home</a> | {% if page.collection == "projects" %}<a href="/projects/">all projects</a>{% else %}<a href="/writing/">all posts</a>{% endif %}</p>
 
 <h1>{{ page.title }}</h1>
 {% if page.collection == "projects" %}
-<p>{{ page.description }}</p>
-<p>{{ page.event | escape }}, {{ page.award }}. {{ page.date | date: "%B %Y" }}. {{ page.team }}.</p>
-<p>{% for link in page.links %}<a href="{{ link.url }}">{{ link.name }}</a>{% unless forloop.last %} | {% endunless %}{% endfor %}</p>
+<p><small>{{ page.date | date: "%B %Y" }}{% if page.organization %} &middot; {{ page.organization | escape }}{% endif %}</small></p>
+<p>{{ page.short_description }}</p>
+{% if page.long_description != "" %}{{ page.long_description | markdownify }}{% endif %}
+{% if page.links %}<p>{% for link in page.links %}<a href="{{ link.url }}">{{ link.name }}</a>{% unless forloop.last %} | {% endunless %}{% endfor %}</p>{% endif %}
+{% if page.images %}<div class="gallery">
+{% for img in page.images %}<img src="{{ img.src }}" alt="{{ img.alt }}">
+{% endfor %}</div>{% endif %}
 {% else %}
-<p><time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: "%B %-d, %Y" }}</time></p>
-{% endif %}
+<p><small><time datetime="{{ page.date | date: '%Y-%m' }}">{{ page.date | date: "%B %Y" }}</time>{% if page.note %} &middot; {{ page.note }}{% endif %}</small></p>
 
 {{ content }}
+{% endif %}
 </main>

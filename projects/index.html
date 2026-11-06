@@ -1,0 +1,18 @@
+---
+layout: default
+title: Projects
+---
+<main>
+<p><a href="/">&larr; home</a></p>
+<h1 class="bar">Projects</h1>
+{% assign projects = site.projects | sort: "date" | reverse %}{% for p in projects %}
+<div class="project">
+{% if p.thumbnail %}<a href="{{ p.url }}"><img src="{{ p.thumbnail }}" alt="{{ p.title }} thumbnail"></a>{% endif %}
+<div>
+<h3><a href="{{ p.url }}">{{ p.title }}</a> <small>{{ p.date | date: "%B %Y" }}</small></h3>
+<p>{% if p.organization %}<small>{{ p.organization | escape }}</small><br>{% endif %}
+{{ p.short_description }}</p>
+</div>
+</div>
+{% endfor %}
+</main>

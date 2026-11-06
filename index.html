@@ -2,34 +2,40 @@
 layout: default
 ---
 <aside id="leftSidebar">
-<h2>links</h2>
+<h2 class="bar">links</h2>
 <ul>
 <li><a href="https://www.linkedin.com/in/milesbhall/">LinkedIn</a></li>
 <li><a href="https://github.com/milesbhall">GitHub</a></li>
 </ul>
 
-<h3>resume</h3>
+<h2 class="bar">resume</h2>
 <p><a href="/resume.pdf" download>download resume (PDF)</a></p>
 </aside>
 
 <main>
-<h1>About Me</h1>
+<h2 class="bar">About Me</h2>
 <p>I'm an undergraduate student at William &amp; Mary double majoring in Applied Math and Computer Science with a concentration in Artificial Intelligence and Machine Learning. I'm obsessed with taking apart systems and machines to understand how they work. This curiosity has led me to pursue academic and financial research.</p>
 
-<h2 id="projects">Projects</h2>
-{% assign projects = site.projects | sort: "date" | reverse %}{% for p in projects %}
-<div class="entry">
-<p><a href="{{ p.url }}">{{ p.title }}</a> <small>{{ p.date | date: "%B %Y" }}</small><br>
-{{ p.description }}<br>
-<small>{{ p.event | escape }}, {{ p.award }}. {{ p.team }}.</small></p>
+<h2 class="bar" id="projects">Latest project</h2>
+{% assign projects = site.projects | sort: "date" | reverse %}{% for p in projects limit:1 %}
+<div class="project">
+{% if p.thumbnail %}<a href="{{ p.url }}"><img src="{{ p.thumbnail }}" alt="{{ p.title }} thumbnail"></a>{% endif %}
+<div>
+<h3><a href="{{ p.url }}">{{ p.title }}</a> <small>{{ p.date | date: "%B %Y" }}</small></h3>
+<p>{% if p.organization %}<small>{{ p.organization | escape }}</small><br>{% endif %}
+{{ p.short_description }}</p>
+</div>
 </div>
 {% endfor %}
+<p><a href="/projects/">all projects ({{ projects.size }}) &rarr;</a></p>
 </main>
 
 <aside id="rightSidebar">
-<h2 id="writing">Writing</h2>
-{% if site.posts.size > 0 %}<ul>
-{% for post in site.posts %}<li><a href="{{ post.url }}">{{ post.title }}</a><br><small>{{ post.date | date: "%Y-%m-%d" }}</small></li>
-{% endfor %}</ul>{% else %}<div class="box"><p>nothing yet.</p></div>{% endif %}
-
+<h2 class="bar" id="writing">Latest post</h2>
+{% if site.posts.size > 0 %}{% for post in site.posts limit:1 %}
+<div class="box">
+<p><a href="{{ post.url }}">{{ post.title }}</a><br><small>{{ post.date | date: "%B %Y" }}</small></p>
+</div>{% endfor %}
+<p><a href="/writing/">all posts ({{ site.posts.size }}) &rarr;</a></p>
+{% else %}<div class="box"><p>nothing yet.</p></div>{% endif %}
 </aside>

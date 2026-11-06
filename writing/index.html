@@ -1,0 +1,11 @@
+---
+layout: default
+title: Writing
+---
+<main>
+<p><a href="/">&larr; home</a></p>
+<h1 class="bar">Writing</h1>
+{% if site.posts.size > 0 %}<ul>
+{% for post in site.posts %}<li><a href="{{ post.url }}">{{ post.title }}</a> <small>{{ post.date | date: "%B %Y" }}</small></li>
+{% endfor %}</ul>{% else %}<p>nothing yet.</p>{% endif %}
+</main>

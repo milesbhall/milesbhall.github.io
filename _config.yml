@@ -18,6 +18,3 @@ defaults:
     values:
       layout: post
 
-exclude:
-  - reference-layout.html
-  - reference-screenshots
