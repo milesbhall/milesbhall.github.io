@@ -19,6 +19,8 @@
   --bar-side:    #0a4f4f;  /* sidebar heading bars */
   --bar-text:    #ffffff;
   --accent:      #3fd0c9;  /* nav links, project card borders, thumbnail frames */
+  --up:          #4cd964;  /* ticker: price went up */
+  --down:        #ff5a5a;  /* ticker: price went down */
 
   /* fonts */
   --heading-font: 'VT323', 'Courier New', monospace;
@@ -84,7 +86,7 @@ body {
   width: 100%;
   padding: 10px;
   font-size: smaller;
-  background-color: var(--panel);
+  background-color: var(--bar-side);  /* same dark teal as the sidebar heading bars */
 }
 
 /* header: map graphic with my name in a label */
@@ -135,6 +137,20 @@ body {
   text-decoration: none;
 }
 
+/* links to other sites open in a new tab and get a small "leaves this site" arrow */
+a[target="_blank"]::after {
+  content: "";
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  margin-left: 0.25em;
+  vertical-align: baseline;
+  background-color: currentColor;  /* same color as the link */
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M5 1H1v10h10V7H9.5v2.5h-7v-7H5zM7 1v1.5h1.44L4.47 6.47l1.06 1.06L9.5 3.56V5H11V1z'/%3E%3C/svg%3E") no-repeat center / contain;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M5 1H1v10h10V7H9.5v2.5h-7v-7H5zM7 1v1.5h1.44L4.47 6.47l1.06 1.06L9.5 3.56V5H11V1z'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+.logos a::after { display: none; }  /* the logos are pictures, no arrow needed */
+
 /* ---------- commodity ticker (data: _data/ticker.json, from FRED) ---------- */
 #ticker {
   position: relative;
@@ -168,7 +184,7 @@ body {
 .ticker-track {
   display: flex;
   width: max-content;
-  animation: ticker-scroll 90s linear infinite;
+  animation: ticker-scroll 150s linear infinite;
 }
 
 .ticker-list {
@@ -180,8 +196,9 @@ body {
 
 .ticker-list li { padding: 0 22px; border-right: 1px solid var(--line); }
 .t-label { color: var(--link); }
-.t-up { color: var(--accent); }
-.t-down, .t-flat, .t-date, .t-source { color: var(--muted); }
+.t-up { color: var(--up); }
+.t-down { color: var(--down); }
+.t-flat, .t-date, .t-source { color: var(--muted); }
 
 @keyframes ticker-scroll {
   from { transform: translateX(0); }

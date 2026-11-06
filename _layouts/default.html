@@ -11,7 +11,7 @@
 <body>
 <div id="container">
 
-<div id="topBar">featured: <a href="{{ site.data.featured.url }}">{{ site.data.featured.title }}</a> - <em>{{ site.data.featured.note }}</em></div>
+<div id="topBar">featured: <a href="{{ site.data.featured.url }}" target="_blank" rel="noopener">{{ site.data.featured.title }}</a> - <em>{{ site.data.featured.note }}</em></div>
 
 <div id="header"><a href="/">Miles Hall</a></div>
 
@@ -34,10 +34,10 @@
 </div>{% endif %}
 
 <div id="flex">
-{{ content }}
+{% comment %} every link to another site (href starting with http) opens in a new tab {% endcomment %}{{ content | replace: 'href="http', 'target="_blank" rel="noopener" href="http' }}
 </div>
 
-<footer id="footer">&copy; 2026 Miles Hall &middot; <small>Commodity prices: <a href="https://fred.stlouisfed.org/">FRED&reg;</a>. This product uses the FRED&reg; API but is not endorsed or certified by the Federal Reserve Bank of St. Louis.</small></footer>
+<footer id="footer">&copy; 2026 Miles Hall &middot; <small>Commodity prices: <a href="https://fred.stlouisfed.org/" target="_blank" rel="noopener">FRED&reg;</a>. This product uses the FRED&reg; API but is not endorsed or certified by the Federal Reserve Bank of St. Louis.</small></footer>
 
 </div>
 </body>
