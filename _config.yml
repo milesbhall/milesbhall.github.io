@@ -1,0 +1,10 @@
+title: Miles Hall
+url: https://mileshall.com
+markdown: kramdown
+permalink: /writing/:title/
+
+defaults:
+  - scope:
+      type: posts
+    values:
+      layout: post

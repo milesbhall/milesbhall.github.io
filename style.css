@@ -1,0 +1,27 @@
+body {
+  max-width: 38em;
+  margin: 2em auto 4em 0;
+  padding: 0 1em;
+  background: #fbf8ef;
+  color: #222;
+  font-family: monospace, monospace;
+  line-height: 1.5;
+}
+
+a, a:visited { color: #0000ee; }
+
+li { margin-bottom: 1em; }
+
+pre {
+  overflow-x: auto;
+  padding: 0.5em;
+  border: 1px dashed #222;
+}
+
+/* code highlighting (rouge) */
+.highlight .c, .highlight .c1, .highlight .cm, .highlight .cs { font-style: italic; }
+.highlight .k, .highlight .kd, .highlight .kn, .highlight .kc, .highlight .kt, .highlight .nb { font-weight: bold; }
+.highlight .s, .highlight .s1, .highlight .s2, .highlight .sd, .highlight .si { color: #0000ee; }
+
+/* wide equations scroll instead of breaking the page */
+mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; }
