@@ -1,6 +1,6 @@
 ---
 title: The site is now live!!
-date: 2026-11-06
+date: 2026-11-05
 note: Announcement
 ---
 
