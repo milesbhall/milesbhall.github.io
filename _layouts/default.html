@@ -11,7 +11,14 @@
 <body>
 <div id="container">
 
-<div id="topBar">featured: <a href="{{ site.data.featured.url }}" target="_blank" rel="noopener">{{ site.data.featured.title }}</a> - <em>{{ site.data.featured.note }}</em></div>
+{% if site.data.ticker.items %}<div id="ticker" aria-label="Commodity prices from FRED">
+<div class="ticker-track">
+{% for pass in (1..2) %}<ul class="ticker-list"{% if pass == 2 %} aria-hidden="true"{% endif %}>
+{% for t in site.data.ticker.items %}<li><span class="t-label">{{ t.label }}</span> {{ t.price }} <span class="t-{{ t.direction }}">{{ t.change }}</span> <span class="t-date">{{ t.as_of }}</span></li>
+{% endfor %}<li class="t-source">source: FRED, Federal Reserve Bank of St. Louis</li>
+</ul>
+{% endfor %}</div>
+</div>{% endif %}
 
 <div id="header"><a href="/">Miles Hall</a></div>
 
@@ -23,15 +30,6 @@
 <li><a href="/resume.pdf" download>resume</a></li>
 </ul>
 </nav>
-
-{% if site.data.ticker.items %}<div id="ticker" aria-label="Commodity prices from FRED">
-<div class="ticker-track">
-{% for pass in (1..2) %}<ul class="ticker-list"{% if pass == 2 %} aria-hidden="true"{% endif %}>
-{% for t in site.data.ticker.items %}<li><span class="t-label">{{ t.label }}</span> {{ t.price }} <span class="t-{{ t.direction }}">{{ t.change }}</span> <span class="t-date">{{ t.as_of }}</span></li>
-{% endfor %}<li class="t-source">source: FRED, Federal Reserve Bank of St. Louis</li>
-</ul>
-{% endfor %}</div>
-</div>{% endif %}
 
 <div id="flex">
 {% comment %} every link to another site (href starting with http) opens in a new tab {% endcomment %}{{ content | replace: 'href="http', 'target="_blank" rel="noopener" href="http' }}
